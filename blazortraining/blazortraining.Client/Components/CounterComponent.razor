@@ -1,12 +1,20 @@
 @rendermode InteractiveAuto
+
 @code{
 
-int count { get; set; } = 0;
+    [Parameter] public int InitialCount { get; set; } = 0;
+    int? count { get; set; }
+
+    protected override void OnInitialized()
+    {
+        count ??= InitialCount;
+    }
 
 }
 
 Count is @count
 <br>
-<input type="number" @bind="count" @bind:event="oninput" />
+<input type="number" @bind="count" @bind:event="oninput"/>
 <br>
 <button @onclick="() => count = 0">Reset</button>
+<br><br>
