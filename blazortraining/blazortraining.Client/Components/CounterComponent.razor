@@ -6,6 +6,27 @@
     
     
     int? count { get; set; }
+    
+    private string Letter
+    {
+        get
+        {
+            var columnString = "";
+            decimal columnNumber = count??0;
+
+            while (columnNumber > 0)
+            {
+                var currentLetterNumber = (columnNumber - 1) % 26;
+                var currentLetter = (char)(currentLetterNumber + 65);
+                columnString = currentLetter + columnString;
+                columnNumber = (columnNumber - (currentLetterNumber + 1)) / 26;
+            }
+
+            return columnString;
+            
+        }
+    }
+    
     protected override void OnInitialized()
     {
         count ??= InitialCount;
@@ -19,9 +40,12 @@
     {
         count = 0;
     }
+
 }
 
 Count is @count
+<br>
+Letter is @Letter
 <br>
 <input type="number" @bind="count" 
        @bind:event="oninput" 
