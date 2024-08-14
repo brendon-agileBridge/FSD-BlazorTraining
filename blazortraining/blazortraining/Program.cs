@@ -8,6 +8,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
+builder.Services.AddSingleton<StateContainer>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
