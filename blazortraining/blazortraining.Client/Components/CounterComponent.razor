@@ -1,5 +1,6 @@
 @rendermode InteractiveAuto
 
+@inject StateContainer StateContainer
 @inject NavigationManager NavigationManager
 @code{
     [Parameter] public int InitialCount { get; set; } = 0;
@@ -7,6 +8,7 @@
     
     
     int? count { get; set; }
+    int? oldCount { get; set; }
     
     private string Letter
     {
@@ -31,10 +33,18 @@
     protected override void OnInitialized()
     {
         count ??= InitialCount;
+        oldCount ??= InitialCount;
+        StateContainer.Increment(InitialCount);
     }
     private async Task OnCountChangedF(int value)
     {
-        NavigationManager.NavigateTo($"/Totals");
+        if(value == (oldCount??0)){
+            return;
+        }
+        
+        StateContainer.Increment(value - (oldCount??0));
+
+        oldCount = value;
         
         await OnCountChanged.InvokeAsync(value);
     }
