@@ -1,20 +1,27 @@
 @rendermode InteractiveAuto
 
 @code{
-
     [Parameter] public int InitialCount { get; set; } = 0;
+    [Parameter] public EventCallback<int> OnCountChanged { get; set; }
+    
+    
     int? count { get; set; }
-
     protected override void OnInitialized()
     {
         count ??= InitialCount;
+    }
+    private async Task OnCountChangedF(int value)
+    {
+        await OnCountChanged.InvokeAsync(value);
     }
 
 }
 
 Count is @count
 <br>
-<input type="number" @bind="count" @bind:event="oninput"/>
+<input type="number" @bind="count" 
+       @bind:event="oninput" 
+       @onchange="() => OnCountChangedF(count.Value)"/>
 <br>
 <button @onclick="() => count = 0">Reset</button>
 <br><br>
