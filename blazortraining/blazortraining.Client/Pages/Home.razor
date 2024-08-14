@@ -1,7 +1,9 @@
 ﻿@page "/"
-
-@rendermode InteractiveServer
 @using blazortraining.Client.Components
+@rendermode InteractiveAuto
+@inject StateContainer StateContainer
+
+
 <PageTitle>Home</PageTitle>
 @code{
     int[] arr10 = [1,2,3,4,5,6,7,8,9,10];
@@ -10,8 +12,13 @@
     {
         Console.WriteLine(value.ToString());
     }
-}
+    
+    protected override void OnInitialized()
+    {
+        StateContainer.Set(0);
+    }
 
+}
 @foreach (var t in arr10)
 {
     <CounterComponent 

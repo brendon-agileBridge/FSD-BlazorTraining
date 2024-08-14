@@ -34,7 +34,7 @@
     {
         count ??= InitialCount;
         oldCount ??= InitialCount;
-        StateContainer.Increment(InitialCount);
+        StateContainer.Increment(count.Value);
     }
     private async Task OnCountChangedF(int value)
     {
@@ -52,6 +52,7 @@
     private void Reset()
     {
         count = 0;
+        OnCountChangedF(0);
     }
 
 }
@@ -65,4 +66,5 @@ Letter is @Letter
        @onchange="() => OnCountChangedF(count.Value)"/>
 <br>
 <button @onclick="Reset">Reset</button>
+@StateContainer.Total
 <br><br>
