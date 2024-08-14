@@ -15,6 +15,10 @@
         await OnCountChanged.InvokeAsync(value);
     }
 
+    private void Reset()
+    {
+        count = 0;
+    }
 }
 
 Count is @count
@@ -23,5 +27,5 @@ Count is @count
        @bind:event="oninput" 
        @onchange="() => OnCountChangedF(count.Value)"/>
 <br>
-<button @onclick="() => count = 0">Reset</button>
+<button @onclick="Reset">Reset</button>
 <br><br>
