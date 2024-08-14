@@ -1,5 +1,6 @@
 @rendermode InteractiveAuto
 
+@inject NavigationManager NavigationManager
 @code{
     [Parameter] public int InitialCount { get; set; } = 0;
     [Parameter] public EventCallback<int> OnCountChanged { get; set; }
@@ -33,6 +34,8 @@
     }
     private async Task OnCountChangedF(int value)
     {
+        NavigationManager.NavigateTo($"/Totals");
+        
         await OnCountChanged.InvokeAsync(value);
     }
 
